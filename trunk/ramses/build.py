@@ -144,6 +144,8 @@ def runBuild(build, options):
             build.props[key] = run[key]
         evaluatePythonProperties(build.props, build.props)
         evaluatePythonProperties(build, build.props)
+        #save the default build hosts's base directory into a prop
+        build.props.base_dir = build.default_host['base_dir']
 
         preAsserts = []
 
@@ -187,7 +189,7 @@ def runBuild(build, options):
 
         #Now run the steps
         global contexHolder
-        defaultRunner = contextHolder.getSystemRunner(build.default_host,build.props, dry_run)
+        defaultRunner = contextHolder.getSystemRunner(build.default_host, build.props, dry_run)
 
         if not defaultRunner.processPreAsserts(preAsserts):
             utils.printf('\nPreasserts failed, exiting build process...')
