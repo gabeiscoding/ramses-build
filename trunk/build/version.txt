@@ -1,0 +1,25 @@
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(_VMAJ, _VMIN, _VBUG, 0),
+    prodvers=(_VMAJ, _VMIN, _VBUG, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+    ),
+  kids=[
+    StringFileInfo(
+      [
+      StringTable(
+        '040904b0', 
+        [StringStruct('CompanyName', 'By Gabe Rudy'),
+        StringStruct('FileDescription', 'Ramses _PLATFORM _VERSION'),
+        StringStruct('FileVersion', '_VERSION'),
+        StringStruct('LegalCopyright', 'GPL3 & Copyright (c) 1999-_YEAR Gabe Rudy'),
+        StringStruct('Comments', 'Built on _DATE from subversion repository r_REV.\r\n\r\nSee http://code.google.com/p/ramses-build/')])
+      ]), 
+    VarFileInfo([VarStruct('Translation', [1033, 1200])])
+  ]
+)
