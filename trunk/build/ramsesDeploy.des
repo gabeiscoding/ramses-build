@@ -1,0 +1,11 @@
+description: "Deploy Ramses"
+properties: ['base.cfg', 'ramses.cfg']
+scripts: ['ramsesDeploy.sh']
+default_host: "!py: props.build_host_by_os"
+steps:
+[
+  #Build
+  {
+    name: 'deploy'
+  }
+]
