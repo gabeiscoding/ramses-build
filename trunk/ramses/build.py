@@ -202,7 +202,7 @@ def runBuild(build, options):
                 valid_props = [name for name in build.props.keys() if type(name) is str or type(name) is int]
                 valid_props.sort()
                 utils.printf('\nValid property names follow: %s'%repr(valid_props))
-                return
+                return 1
 
             #if there are any PRE_ASSERT_EXISTS in the miniScript, grab them for queinging
             if taskWillBeDone:
@@ -216,7 +216,7 @@ def runBuild(build, options):
 
         if not defaultRunner.processPreAsserts(preAsserts):
             utils.printf('\nPreasserts failed, exiting build process...')
-            return
+            return 1
 
         for step in build.steps:
             #perform condition check
@@ -243,9 +243,10 @@ def runBuild(build, options):
             success = runner.run(build.miniScripts[step.name])
             if not success:
                 utils.printf('\nPrevious task failed, exiting build process...')
-                return
+                return 1
         
     utils.printf("Build finished successfully")
+    return 0
     
 def parseBuildFile(fname):
     try:
@@ -280,7 +281,7 @@ def main(args=None):
         from time import time
         t1 = time()
         stepsData = parseBuildFile(args[0])
-        runBuild(stepsData, options)
+        rv = runBuild(stepsData, options)
         t2 = time()
         print "Build time:",utils.toMinutes(t2-t1)
     except Usage, e:
