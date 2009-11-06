@@ -58,7 +58,7 @@ def boolSelect(boolVal, trueOption, falseOption):
 
 def parseScriptFile(fname, miniScripts):
     script = open(fname,'r')
-    contents = script.read()
+    contents = script.read().replace('\r\n','\n')
     script.close()
     
     p = re.compile(r'^#.*?$',re.MULTILINE)
@@ -86,13 +86,34 @@ def parseScriptFile(fname, miniScripts):
 
 def parsePropertyFile(fname, cfg):
     try:
-        cfg.load(file(fname))
+        f = open(fname,'r')
+        #cfg.load(f.read().replace('\r\n','\n'))
+        cfg.load(file(fname,'r'))
         for name in cfg.keys():
             cfg[name] #make sure all keys resolve
     except Exception, e:
         utils.printf("%s: %s" % (fname, e))
         raise ParseError("Fix your input files")
 
+    return cfg
+
+def parseCmdLnProperties(cfg):
+    import sys
+    for arg in sys.argv:
+        try:
+            idx = arg.index("=")
+            if idx > 0:
+                prop = arg[:idx]
+                value = arg[idx+1:]
+                if not prop.startswith("-"): #We might want to have commnad line switches in the form --switch=value
+                    #Make boolean values python booleans so they can be used in logic
+                    if value=="True":
+                        value = True
+                    if value=="False":
+                        value = False
+                    cfg[prop]=value
+        except:
+            pass
     return cfg
 
 def evaluatePythonProperties(props_toeval, props):
@@ -133,6 +154,8 @@ def runBuild(build, options):
     build.props = Config()
     for propFile in build.properties:
         build.props = parsePropertyFile(propFile, build.props)
+
+    build.props = parseCmdLnProperties(build.props)
 
     run_with_each = [{}] #List of one empty dict default
     if 'run_with_each' in build:

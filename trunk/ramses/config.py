@@ -1027,7 +1027,8 @@ class ConfigReader:
             if c == '\n':
                 self.lineno += 1
                 self.colno = 1
-        return c
+        if c == '\r': return self.getChar()
+        else: return c
 
     def __repr__(self):
         return "<ConfigReader at 0x%08x>" % id(self)

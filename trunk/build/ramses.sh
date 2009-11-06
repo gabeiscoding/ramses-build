@@ -43,3 +43,8 @@ echo "#define MySetupIconPath \"${base_dir}/${source_dir}/build/install.ico\"" >
 
 tail -n +11 ${source_dir}/build/setup.iss >> ${source_dir}/install_script.iss
 "$istool_exe" -compile ${source_dir}/install_script.iss
+
+[lin_setup_package]
+mkdir -p $local_package_dir
+mv ${stagearea_dir}/dist/${product_name}/${product_name} ${stagearea_dir}/dist/${product_name}/${binary_name}
+cd ${stagearea_dir}/dist/; tar -czvf ../../../${local_package_dir}/${final_package_name} ${product_name}

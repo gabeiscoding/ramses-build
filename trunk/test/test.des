@@ -1,0 +1,11 @@
+description: "Test build system"
+properties: ['test.cfg']
+scripts: ['test.sh']
+default_host: "!py: props.localhost"
+steps:
+[
+  #Build
+  {
+    name: 'hello_world'
+  }
+]
