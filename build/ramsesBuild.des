@@ -22,6 +22,10 @@ steps:
   }
   {
     name: 'win_setup_package'
-    condition: ['props.target_platform.startswith("win")']
+    conditions: ['props.target_platform.startswith("win")']
+  }
+  {
+    name: 'lin_setup_package'
+    conditions: ['props.target_platform.startswith("lin")']
   }
 ]
