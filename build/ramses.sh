@@ -41,8 +41,9 @@ echo "#define MyStageDir \"${base_dir}/${stagearea_dir}/dist/${product_name}\"" 
 echo "#define MyScriptWriterPath \"${base_dir}/${source_dir}/build/write-launch-script.js\"" >> ${source_dir}/install_script.iss
 echo "#define MySetupIconPath \"${base_dir}/${source_dir}/build/install.ico\"" >> ${source_dir}/install_script.iss
 
-tail -n +11 ${source_dir}/build/setup.iss >> ${source_dir}/install_script.iss
+tail -n +12 ${source_dir}/build/setup.iss >> ${source_dir}/install_script.iss
 "$istool_exe" -compile ${source_dir}/install_script.iss
+chmod 775 ${local_package_dir}/${final_package_name}
 
 [lin_setup_package]
 mkdir -p $local_package_dir
