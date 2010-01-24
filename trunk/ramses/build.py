@@ -109,7 +109,7 @@ def parseCmdLnProperties(cfg):
                     #Make boolean values python booleans so they can be used in logic
                     if value.lower()=="true":
                         value = True
-                    if value=.lower()="false":
+                    if value.lower()=="false":
                         value = False
                     cfg[prop]=value
         except:
