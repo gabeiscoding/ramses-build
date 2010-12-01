@@ -106,12 +106,16 @@ def parseCmdLnProperties(cfg):
                 prop = arg[:idx]
                 value = arg[idx+1:]
                 if not prop.startswith("-"): #We might want to have commnad line switches in the form --switch=value
-                    #Make boolean values python booleans so they can be used in logic
-                    if value.lower()=="true":
-                        value = True
-                    if value.lower()=="false":
-                        value = False
-                    cfg[prop]=value
+                    try:
+                        #Make boolean values python booleans so they can be used in logic
+                        if value.lower().strip()=="true":
+                            value = True
+                        elif value.lower().strip()=="false":
+                            value = False
+                        cfg[prop]=value
+                    except:
+                        import traceback, sys
+                        traceback.print_exc(file=sys.stdout)
         except:
             pass
     return cfg
